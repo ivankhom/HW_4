@@ -1,7 +1,6 @@
-select name, duration
+select name, duration 
 from song_list
-order by duration desc 
-limit 1;
+where duration = (select MAX(duration) from song_list);
 
 select name
 from song_list
@@ -9,7 +8,7 @@ where duration >= 3.5 * 60;
 
 select name
 from collection
-where released_at >= 2018 AND released_at <= 2020;
+where released_at between 2019 and 2020;
 
 select name
 from singer
@@ -33,11 +32,15 @@ from song_list
 join album on song_list.album_id = album.id
 group by album_id;
 
-select singer.name 
+select singer.name
 from singer
-join album_singer on singer.id = album_singer.singer_id
-join album on album.id = album_singer.album_id 
-where extract(year from album.issue_date) <> 2020;
+where singer.id not in(
+select singer_id
+from album_singer
+where album_id in(
+select id 
+from album
+where extract(year from issue_date) = 2020) );
 
 select collection.name
 from collection

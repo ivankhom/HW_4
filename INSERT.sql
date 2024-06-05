@@ -18,11 +18,11 @@ values (1, 2),
 (2, 1),
 (3, 1),
 (4, 3),
-(1, 4)
+(1, 2)
 on conflict (id_singer, id_genre) do nothing;
 
 insert into album_singer(album_id, singer_id)
-values (1,1), (2, 2), (3, 3), (4, 4), (5, 2), (6, 3)
+values (1,1), (2, 2), (3, 3), (4, 4), (5, 2), (2, 3)
 on conflict (album_id, singer_id) do nothing;
 
 insert into collection_song_list(collection_id, song_id)
